@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package tubespbo;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -54,13 +54,15 @@ public class Register extends javax.swing.JFrame {
         jLabel4.setText("Phone Number");
 
         txtBirthDate.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtBirthDateActionPerformed(evt);
             }
         });
 
         btnRegister.setText("Register");
-        btnRegister.addActionListener(new java.awt.event.ActionListener() {
+        btnRegister.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegisterActionPerformed(evt);
             }
