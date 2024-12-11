@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package tubespbo;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -55,6 +55,7 @@ public class Login extends javax.swing.JFrame {
         registerButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 registerButtonActionPerformed(evt);
+                
             }
         });
 
@@ -134,6 +135,7 @@ public class Login extends javax.swing.JFrame {
                     userDashboard.setVisible(true);
                 }
                 this.setVisible(false);
+                
             } else {
                 JOptionPane.showMessageDialog(this, "Invalid email or password.");
             }
