@@ -20,8 +20,6 @@ public class User extends Person {
         this.name = name;
     }
 
-
-
     public Date getBirthDate() {
         return birthDate;
     }
@@ -53,8 +51,6 @@ public class User extends Person {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-
-    public void complain (Person person, String complain) {}
 
     public void callMenuChat() {}
 
