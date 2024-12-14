@@ -4,14 +4,15 @@ import tubespbo.src.component.ChatRoom;
 import tubespbo.src.component.Order;
 
 import java.util.ArrayList;
+import java.util.Queue;
 import java.util.Date;
 
-public class User extends Person {
+public abstract class User extends Person {
     private String name;
     private String id;
     private String phoneNumber;
     private Date birthDate;
-    private ArrayList<Order> orderHistory;
+    private Queue<Order> orderHistory;
     private ArrayList<ChatRoom> chatRooms;
 
     public User(String email, String password, String id, String name) {
@@ -52,9 +53,18 @@ public class User extends Person {
         this.phoneNumber = phoneNumber;
     }
 
-    public void callMenuChat() {}
+    public void getOrderHistory() {
+        for (Order order : orderHistory) {
+            System.out.println(order);
+        }
+    }
 
-    public void callMenuUser() {}
+    public void addOrderHistory(Order order) {
+        this.orderHistory.add(order);
+        if (this.orderHistory.size() > 10) {
+            this.orderHistory.remove();
+        }
+    }
 
-    public void callMenuHistory() {}
+    public abstract void callMenu();
 }
