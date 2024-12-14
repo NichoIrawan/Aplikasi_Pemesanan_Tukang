@@ -2,12 +2,9 @@ package tubespbo.src.userClass;
 
 import tubespbo.src.component.*;
 
-import java.util.Queue;
-
 public class Customer extends User {
     private Address[] addresses;
     private Tukang[] tukangFavorit;
-    private Queue<Order> orderHistory;
 
     public Customer(String email, String password, String id, String name) {
         super(email, password, id, name);
@@ -62,19 +59,6 @@ public class Customer extends User {
             }
         } catch (Exception e) {
             System.out.println("[Error] Tukang tidak valid");
-        }
-    }
-
-    public void getOrderHistory() {
-        for (Order order : orderHistory) {
-            System.out.println(order);
-        }
-    }
-
-    public void addOrderHistory(Order order) {
-        this.orderHistory.add(order);
-        if (this.orderHistory.size() > 10) {
-            this.orderHistory.remove();
         }
     }
 
