@@ -23,7 +23,8 @@ public class Admin extends Person {
            certification.setVerified();
     }
 
-    public void callMenuChat() {}
+    @Override
+    public void callMenu() {
 
-    public void callMenuAdmin() {}
+    }
 }
