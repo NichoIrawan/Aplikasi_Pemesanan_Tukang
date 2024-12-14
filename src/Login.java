@@ -1,4 +1,4 @@
-/*
+package tubespbo.src;/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
@@ -128,8 +128,8 @@ public class Login extends javax.swing.JFrame {
                     AdminDashboard adminDashboard = new AdminDashboard();
                     adminDashboard.setVisible(true);
                 } else if (role.equals("tukang")) {
-                    TukangDashboard tukangDashboard = new TukangDashboard();
-                    tukangDashboard.setVisible(true);
+                    //TukangDashboard tukangDashboard = new TukangDashboard();
+                    //tukangDashboard.setVisible(true);
                 } else {
                     UserDashboard userDashboard = new UserDashboard();
                     userDashboard.setVisible(true);
@@ -147,8 +147,8 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_loginButtonActionPerformed
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
-        Register registerForm = new Register();
-        registerForm.setVisible(true);  // Menampilkan form Register
+        //Register registerForm = new Register();
+        //registerForm.setVisible(true);  // Menampilkan form Register
         this.setVisible(false); 
     }//GEN-LAST:event_registerButtonActionPerformed
 

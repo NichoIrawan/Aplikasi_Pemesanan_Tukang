@@ -1,15 +1,19 @@
+package tubespbo.src;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+
+import java.util.HashMap;
 import javax.swing.*;
 public class MenuPesanan implements ActionListener{
-    ArrayList<String> itemsSearch = new ArrayList<>();
+    HashMap<String ,Tukang> itemsSearch = new HashMap<>();
     JFrame frame = new JFrame();
     JPanel searchArea = new JPanel();
     JPanel resultArea = new JPanel();
     JLabel title = new JLabel();
     JLabel result = new JLabel();
+    JButton orderButton = new JButton();
     JButton searchButton = new JButton();
     JTextField searchBar = new JTextField();
 
@@ -19,9 +23,10 @@ public class MenuPesanan implements ActionListener{
 
     public void createFrame(){
         //tambah data ke array
-        itemsSearch.add("item1");
-        itemsSearch.add("item2");
-        itemsSearch.add("item3");
+        itemsSearch.put("1", new Tukang("abc 123", "1234", "1", "Ujang"));
+        itemsSearch.put("2", new Tukang("bobi@gmail.com", "3214", "2", "Bobi"));
+        itemsSearch.put("3", new Tukang("agus@gmail.com", "1452", "3", "Agus"));
+
 
         frame.setSize(500,500);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -31,7 +36,7 @@ public class MenuPesanan implements ActionListener{
         searchArea.setLayout(new FlowLayout());
 
         resultArea.setPreferredSize(new Dimension(200, 200));
-        resultArea.setLayout(new BorderLayout());
+        resultArea.setLayout(new FlowLayout());
  
         title.setText("Cari Tukang");
         title.setHorizontalAlignment(JLabel.LEFT);
@@ -42,7 +47,11 @@ public class MenuPesanan implements ActionListener{
         result.setVerticalAlignment(JLabel.CENTER);
         result.setHorizontalAlignment(JLabel.CENTER);
         result.setVisible(false);
-        resultArea.add(result, BorderLayout.NORTH);
+        orderButton.setVisible(false);
+        orderButton.setText("Pesan");
+        orderButton.addActionListener(this);
+        resultArea.add(result);
+        resultArea.add(orderButton);
         
         
         searchBar.setPreferredSize(new Dimension(250, 40));
@@ -60,19 +69,24 @@ public class MenuPesanan implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        String resText = searchBar.getText();
+        String item = search(resText);
         if(e.getSource()==searchButton){
+            orderButton.setVisible(true);
             result.setVisible(true);
-            String resText = searchBar.getText();   
-            result.setText(search(resText));
-            
+            result.setText(itemsSearch.get(item).getEmail());
+        }
+        if ((e.getSource()==orderButton)){
+            frame.setVisible(false);
+            new OrderPage(itemsSearch.get(item)).createFrame();
         }
     }
 
     public String search(String item){
-        for (String items : itemsSearch) {
-            if(items.equals(item)){
-                return items;
-            } 
+        for (String i : itemsSearch.keySet()) {
+            if (itemsSearch.get(i).getName().equals(item)) {
+                return i;
+            }
         }
         return "Not Found";
     }

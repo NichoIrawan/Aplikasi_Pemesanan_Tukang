@@ -1,7 +1,9 @@
-/*
+package tubespbo.src;/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
+
+import tubespbo.src.koneksi;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,7 +26,7 @@ public class Register extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    public void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -153,35 +155,38 @@ public class Register extends javax.swing.JFrame {
         String phoneNumber = txtPhoneNumber.getText();
         String password = txtPassword.getText();
         String birthDate = txtBirthDate.getText();
-        String role = "user"; 
+        String role = "user";
 
-        if (name.isEmpty() || email.isEmpty() || phoneNumber.isEmpty() || password.isEmpty() || birthDate.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please fill all fields.");
-            return;
-        }
 
-        try (Connection conn = koneksi.connect()) {
-            String query = "INSERT INTO user (nama, email, no_hp, password, tanggal_lahir, hak_akses) VALUES (?, ?, ?, ?, ?, ?)";
-            PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1, name);
-            stmt.setString(2, email);
-            stmt.setString(3, phoneNumber);
-            stmt.setString(4, password);
-            stmt.setString(5, birthDate);
-            stmt.setString(6, role);
-
-            int rowsInserted = stmt.executeUpdate();
-            if (rowsInserted > 0) {
-                JOptionPane.showMessageDialog(this, "Registration successful! Please log in.");
-                dispose(); 
-                new Login().setVisible(true);
-            } else {
-                JOptionPane.showMessageDialog(this, "Registration failed. Please try again.");
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error registering user. " + ex.getMessage());
-        }
+        new UserDashboard().setVisible(true);
+        this.setVisible(false);
+//        if (name.isEmpty() || email.isEmpty() || phoneNumber.isEmpty() || password.isEmpty() || birthDate.isEmpty()) {
+//            JOptionPane.showMessageDialog(this, "Please fill all fields.");
+//            return;
+//        }
+//
+//        try (Connection conn = koneksi.connect()) {
+//            String query = "INSERT INTO user (nama, email, no_hp, password, tanggal_lahir, hak_akses) VALUES (?, ?, ?, ?, ?, ?)";
+//            PreparedStatement stmt = conn.prepareStatement(query);
+//            stmt.setString(1, name);
+//            stmt.setString(2, email);
+//            stmt.setString(3, phoneNumber);
+//            stmt.setString(4, password);
+//            stmt.setString(5, birthDate);
+//            stmt.setString(6, role);
+//
+//            int rowsInserted = stmt.executeUpdate();
+//            if (rowsInserted > 0) {
+//                JOptionPane.showMessageDialog(this, "Registration successful! Please log in.");
+//                dispose();
+//                new Login().setVisible(true);
+//            } else {
+//                JOptionPane.showMessageDialog(this, "Registration failed. Please try again.");
+//            }
+//        } catch (SQLException ex) {
+//            ex.printStackTrace();
+//            JOptionPane.showMessageDialog(this, "Error registering user. " + ex.getMessage());
+//        }
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     /**

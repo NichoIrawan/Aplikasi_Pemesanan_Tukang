@@ -1,4 +1,4 @@
-/*
+package tubespbo.src;/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
@@ -128,32 +128,30 @@ public class UserDashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrderActionPerformed
-        Order orderForm = new Order();
-        orderForm.setVisible(true); // Tampilkan form Order
-        this.setVisible(false); // Sembunyikan dashboard
+        new MenuPesanan().createFrame();
+        this.setVisible(false);
     }//GEN-LAST:event_btnOrderActionPerformed
 
     private void btnRiwayatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRiwayatActionPerformed
-        Riwayat riwayatForm = new Riwayat();
-        riwayatForm.setVisible(true); // Tampilkan form Order
+        new RiwayatPage().createFrame();
         this.setVisible(false); // Sembunyikan dashboard
     }//GEN-LAST:event_btnRiwayatActionPerformed
 
     private void btnFavoritActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFavoritActionPerformed
-        Favorit favoritForm = new Favorit();
-        favoritForm.setVisible(true); // Tampilkan form Order
+        //Favorit favoritForm = new Favorit();
+        //favoritForm.setVisible(true); // Tampilkan form Order
         this.setVisible(false); // Sembunyikan dashboard
     }//GEN-LAST:event_btnFavoritActionPerformed
 
     private void btnStrukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStrukActionPerformed
-        Struk strukForm = new Struk();
-        strukForm.setVisible(true); // Tampilkan form Order
+        //Struk strukForm = new Struk();
+        //strukForm.setVisible(true); // Tampilkan form Order
         this.setVisible(false); // Sembunyikan dashboard
     }//GEN-LAST:event_btnStrukActionPerformed
 
     private void btnBayarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBayarActionPerformed
-        Bayar bayarForm = new Bayar();
-        bayarForm.setVisible(true); // Tampilkan form Order
+        //Bayar bayarForm = new Bayar();
+        //bayarForm.setVisible(true); // Tampilkan form Order
         this.setVisible(false); // Sembunyikan dashboard
     }//GEN-LAST:event_btnBayarActionPerformed
 

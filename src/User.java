@@ -17,6 +17,8 @@ public class User extends Person {
         this.name = name;
     }
 
+
+
     public Date getBirthDate() {
         return birthDate;
     }
