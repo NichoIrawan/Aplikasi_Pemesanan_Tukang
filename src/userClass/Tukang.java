@@ -61,11 +61,23 @@ public class Tukang extends User{
         }
     }
 
+    private void addCertification(Certificate certification) {
+        this.certification[this.certification.length - 1] = certification;
+    }
+
     public void setCertification(int i, Certificate certification) {
-        if (certification.getIdTukang().equals(super.getId()) && certification.isVerified()){
-            this.certification[i] = certification;
-        } else {
-            System.out.println("Sertifikat belum terverifikasi");
+        try {
+            if (this.certification.length <= 5) {
+                addCertification(certification);
+            } else {
+                if (certification.getIdTukang().equals(super.getId()) && certification.isVerified()){
+                    this.certification[i] = certification;
+                } else {
+                    System.out.println("Sertifikat belum terverifikasi");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("[Error] Index tidak valid");
         }
     }
 
@@ -75,5 +87,10 @@ public class Tukang extends User{
 
     public void confirmOrder() {
         orderCount++;
+    }
+
+    @Override
+    public void callMenu() {
+
     }
 }
