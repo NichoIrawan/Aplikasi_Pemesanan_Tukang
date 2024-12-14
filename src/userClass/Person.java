@@ -31,4 +31,6 @@ public abstract class Person {
     }
 
     public abstract void callMenuChat();
+
+    public abstract void callMenu();
 }
