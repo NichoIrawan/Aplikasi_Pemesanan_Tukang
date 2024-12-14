@@ -13,7 +13,6 @@ public abstract class User extends Person {
     private String phoneNumber;
     private Date birthDate;
     private Queue<Order> orderHistory;
-    private ArrayList<ChatRoom> chatRooms;
 
     public User(String email, String password, String id, String name) {
         super(email, password);
@@ -65,6 +64,4 @@ public abstract class User extends Person {
             this.orderHistory.remove();
         }
     }
-
-    public abstract void callMenu();
 }
