@@ -1,4 +1,4 @@
-package tubespbo.src;
+package tubespbo.src.component;
 
 import java.util.Date;
 

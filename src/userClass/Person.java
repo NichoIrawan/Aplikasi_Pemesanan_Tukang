@@ -1,4 +1,6 @@
-package tubespbo.src;
+package tubespbo.src.userClass;
+
+import tubespbo.src.component.ChatRoom;
 
 import java.util.ArrayList;
 

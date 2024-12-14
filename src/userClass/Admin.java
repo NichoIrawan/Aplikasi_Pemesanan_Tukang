@@ -1,4 +1,4 @@
-package tubespbo.src;
+package tubespbo.src.userClass;
 
 public class Admin extends Person {
     public Admin(String email, String password) {

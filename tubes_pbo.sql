@@ -83,10 +83,10 @@ CREATE TABLE `reviews` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tukang`
+-- Struktur dari tabel `listTukang`
 --
 
-CREATE TABLE `tukang` (
+CREATE TABLE `listTukang` (
   `tukangId` int(3) NOT NULL,
   `id_user` int(3) NOT NULL,
   `service` varchar(50) CHARACTER SET latin1 NOT NULL,
@@ -98,10 +98,10 @@ CREATE TABLE `tukang` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `tukang`
+-- Dumping data untuk tabel `listTukang`
 --
 
-INSERT INTO `tukang` (`tukangId`, `id_user`, `service`, `rating`, `certification`, `balance`, `verification`, `isAvailable`) VALUES
+INSERT INTO `listTukang` (`tukangId`, `id_user`, `service`, `rating`, `certification`, `balance`, `verification`, `isAvailable`) VALUES
 (1, 4, 'listrik', 5, '', 50000, 'verified', 1);
 
 -- --------------------------------------------------------
@@ -117,7 +117,7 @@ CREATE TABLE `user` (
   `no_hp` varchar(12) CHARACTER SET latin1 NOT NULL,
   `password` varchar(15) CHARACTER SET latin1 NOT NULL,
   `tanggal_lahir` date NOT NULL,
-  `hak_akses` enum('admin','tukang','user') CHARACTER SET latin1 NOT NULL,
+  `hak_akses` enum('admin','listTukang','user') CHARACTER SET latin1 NOT NULL,
   `status` enum('active','suspended','inactive') CHARACTER SET latin1 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -128,9 +128,9 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`id`, `nama`, `email`, `no_hp`, `password`, `tanggal_lahir`, `hak_akses`, `status`) VALUES
 (1, 'triana', 'triana1@gmail.com', '081376274893', 'admin', '2024-07-08', 'admin', 'active'),
 (2, 'monica', 'monica1@gmail.com', '083636864863', 'user', '1996-12-04', 'user', 'active'),
-(3, 'yanto', 'yanto1@gmail.com', '083859595682', 'tukang', '1990-08-04', 'user', 'active'),
-(4, 'yuyu', 'yuyu1@gmail.com', '083866386342', 'tukang', '2014-12-03', 'tukang', 'active'),
-(5, 'intan', 'intan1@gmail.com', '084883838633', 'tukang', '2005-09-04', 'tukang', 'active');
+(3, 'yanto', 'yanto1@gmail.com', '083859595682', 'listTukang', '1990-08-04', 'user', 'active'),
+(4, 'yuyu', 'yuyu1@gmail.com', '083866386342', 'listTukang', '2014-12-03', 'listTukang', 'active'),
+(5, 'intan', 'intan1@gmail.com', '084883838633', 'listTukang', '2005-09-04', 'listTukang', 'active');
 
 --
 -- Indexes for dumped tables
@@ -168,9 +168,9 @@ ALTER TABLE `reviews`
   ADD KEY `id_user` (`id_user`);
 
 --
--- Indeks untuk tabel `tukang`
+-- Indeks untuk tabel `listTukang`
 --
-ALTER TABLE `tukang`
+ALTER TABLE `listTukang`
   ADD PRIMARY KEY (`tukangId`),
   ADD UNIQUE KEY `id_user` (`id_user`);
 
@@ -209,9 +209,9 @@ ALTER TABLE `reviews`
   MODIFY `id_review` int(3) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `tukang`
+-- AUTO_INCREMENT untuk tabel `listTukang`
 --
-ALTER TABLE `tukang`
+ALTER TABLE `listTukang`
   MODIFY `tukangId` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
@@ -229,7 +229,7 @@ ALTER TABLE `user`
 --
 ALTER TABLE `jadwal`
   ADD CONSTRAINT `jadwal_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `jadwal_ibfk_2` FOREIGN KEY (`tukangId`) REFERENCES `tukang` (`tukangId`),
+  ADD CONSTRAINT `jadwal_ibfk_2` FOREIGN KEY (`tukangId`) REFERENCES `listTukang` (`tukangId`),
   ADD CONSTRAINT `jadwal_ibfk_3` FOREIGN KEY (`orderId`) REFERENCES `orders` (`orderId`);
 
 --
@@ -237,19 +237,19 @@ ALTER TABLE `jadwal`
 --
 ALTER TABLE `orders`
   ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`tukangId`) REFERENCES `tukang` (`tukangId`);
+  ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`tukangId`) REFERENCES `listTukang` (`tukangId`);
 
 --
 -- Ketidakleluasaan untuk tabel `reviews`
 --
 ALTER TABLE `reviews`
-  ADD CONSTRAINT `reviews_ibfk_1` FOREIGN KEY (`tukangId`) REFERENCES `tukang` (`tukangId`),
+  ADD CONSTRAINT `reviews_ibfk_1` FOREIGN KEY (`tukangId`) REFERENCES `listTukang` (`tukangId`),
   ADD CONSTRAINT `reviews_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`);
 
 --
--- Ketidakleluasaan untuk tabel `tukang`
+-- Ketidakleluasaan untuk tabel `listTukang`
 --
-ALTER TABLE `tukang`
+ALTER TABLE `listTukang`
   ADD CONSTRAINT `tukang_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`),
   ADD CONSTRAINT `tukang_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`);
 COMMIT;

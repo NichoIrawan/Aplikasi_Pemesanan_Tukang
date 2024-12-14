@@ -1,4 +1,7 @@
-package tubespbo.src;
+package tubespbo.src.component;
+
+import tubespbo.src.userClass.Customer;
+import tubespbo.src.userClass.Tukang;
 
 import java.util.Date;
 
