@@ -19,12 +19,24 @@ public class Customer extends User {
         }
     }
 
+    private void addAddress(Address address) {
+        addresses[addresses.length - 1] = address;
+    }
+
     public void changeAddresses(int i, Address address) {
-        this.addresses[i] = address;
+        try {
+            if (addresses.length <= 3) {
+                addAddress(address);
+            } else {
+                this.addresses[i-1] = address;
+            }
+        } catch (Exception e) {
+            System.out.println("[Error] Alamat tidak valid");
+        }
     }
 
     public void removeAddress(int i, Address address) {
-        this.addresses[i] = null;
+        this.addresses[i-1] = null;
     }
 
     public void getTukangFavorit() {
@@ -33,11 +45,24 @@ public class Customer extends User {
         }
     }
 
+    private void addTukangFavorit(Tukang tukang) {
+        tukangFavorit[tukangFavorit.length - 1] = tukang;
+    }
+
     public void changeTukangFavorit(int i, Tukang tukang) {
-        if (this.tukangFavorit[i].getId().equals(tukang.getId())) {
-            return;
+        try {
+            if (tukangFavorit.length <= 5) {
+                addTukangFavorit(tukang);
+            } else {
+                if (this.tukangFavorit[i].getId().equals(tukang.getId())) {
+                    System.out.println("[Error] Tukang sudah masuk ke daftar favorit");
+                    return;
+                }
+                this.tukangFavorit[i] = tukang;
+            }
+        } catch (Exception e) {
+            System.out.println("[Error] Tukang tidak valid");
         }
-        this.tukangFavorit[i] = tukang;
     }
 
     public void getOrderHistory() {
@@ -51,5 +76,10 @@ public class Customer extends User {
         if (this.orderHistory.size() > 10) {
             this.orderHistory.remove();
         }
+    }
+
+    @Override
+    public void callMenu() {
+
     }
 }
