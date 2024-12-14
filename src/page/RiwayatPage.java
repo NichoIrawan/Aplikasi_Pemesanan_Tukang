@@ -1,4 +1,4 @@
-package tubespbo.src;
+package tubespbo.src.page;
 import javax.swing.*;
 public class RiwayatPage {
     JFrame frame = new JFrame("Riwayat");

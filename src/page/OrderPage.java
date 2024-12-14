@@ -1,4 +1,6 @@
-package tubespbo.src;
+package tubespbo.src.page;
+import tubespbo.src.userClass.*;
+
 import javax.swing.*;
 public class OrderPage {
     private Tukang tukang;

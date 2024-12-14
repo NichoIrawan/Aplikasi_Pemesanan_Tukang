@@ -1,4 +1,6 @@
-package tubespbo.src;
+package tubespbo.src.component;
+
+import tubespbo.src.userClass.*;
 
 import java.util.ArrayList;
 import java.util.Date;
