@@ -14,6 +14,7 @@ public class ChatRoom {
         this.RoomId = RoomId;
         this.user1 = user1;
         this.user2 = user2;
+        this.messages = new ArrayList<>();
     }
 
     public Person getUser2() {
@@ -28,7 +29,17 @@ public class ChatRoom {
         return RoomId;
     }
 
-    public void showMessages(){
+    public void addMessage(Message message) {
+        messages.add(message);
+    }
 
+    public void removeMessage(Message message) {
+        messages.remove(message);
+    }
+
+    public void showMessages(){
+        for (Message m : messages) {
+            System.out.println(m + "\n");
+        }
     }
 }
