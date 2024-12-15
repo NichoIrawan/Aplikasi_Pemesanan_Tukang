@@ -17,6 +17,7 @@ public class Tukang extends User{
         this.balance = balance;
         this.serviceCategory = serviceCategory;
         this.orderCount = orderCount;
+        serviceCategory.addListTukang(this);
     }
     //------------------
 
@@ -45,9 +46,7 @@ public class Tukang extends User{
         this.balance = balance;
     }
 
-    public Services getServiceCategory() {
-        return serviceCategory;
-    }
+
 
     public void setServiceCategory(Services serviceCategory) {
         this.serviceCategory.removeListTukang(this);

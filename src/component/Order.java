@@ -78,7 +78,12 @@ public class Order {
         Transaction transaction = new Transaction(id + "1", this.customer, this.tukang, paymentMethod, this.totalPrice, this.date);
     }
 
-    public void printOrderInfo(){}
+    public void printOrderInfo(){
+        System.out.println("ID: " + this.id);
+        System.out.println("Tukang: " + this.tukang);
+        System.out.println("TotalPrice: " + this.totalPrice);
+        System.out.println("Status: " + this.status);
+    }
 
     public void giveRating(Tukang tukang, double rating){}
 }
