@@ -6,10 +6,7 @@ import tubespbo.src.userClass.Customer;
 import tubespbo.src.userClass.Tukang;
 import tubespbo.src.userClass.User;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     static HashMap<String , Tukang> tukangItems = new HashMap<>();
@@ -29,41 +26,48 @@ public class Main {
         tukangItems.put("1", tukang1);
         tukangItems.put("2", tukang2);
 
-
-
 //        search();
 
 //        Order order = new Order("1", tukang1, customer1, 500000.0, "Selesai", new Date(10, 12, 2024));
 //        orders.add(order);
-
         int choice;
-        do {
-            System.out.println("\n========== SELAMAT DATANG ==========");
-            System.out.println("1. Login");
-            System.out.println("2. Register");
-            System.out.println("0. Keluar");
-            System.out.print("Pilih menu: ");
-            choice = sc.nextInt();
-            sc.nextLine();  // Clear buffer
+        try {
+            do {
+                System.out.println("\n========== SELAMAT DATANG ==========");
+                System.out.println("1. Login");
+                System.out.println("2. Register");
+                System.out.println("0. Keluar");
+                System.out.print("Pilih menu: ");
 
-            switch (choice) {
-                case 1:
-                    if (login()) {
-                        showMainMenu();
-                    }
-                    break;
-                case 2:
-                    register();
-                    break;
-                case 0:
-                    System.out.println("Terima kasih telah menggunakan aplikasi.");
-                    break;
-                default:
-                    System.out.println("Pilihan tidak valid.");
-            }
-        } while (choice != 0);
+                choice = sc.nextInt();
+                sc.nextLine();  // Clear buffer
+
+                switch (choice) {
+                    case 1:
+                        if (login()) {
+                            showMainMenu();
+                        }
+                        break;
+                    case 2:
+                        register();
+                        break;
+                    case 0:
+                        System.out.println("Terima kasih telah menggunakan aplikasi.");
+                        break;
+                    default:
+                        System.out.println("Pilihan tidak valid.");
+                }
+            } while (choice != 0);
+
+        } catch (InputMismatchException e) {
+            System.out.println("Masukkan format input yang sesuai");
+
+        }
 
         sc.close();
+    }
+    public static void startMenu(){
+
     }
     public static boolean login() {
         System.out.println("\n========== LOGIN ==========");
@@ -260,18 +264,40 @@ public class Main {
         System.out.println("9. Kembali");
         System.out.println("Pilih Opsi:");
         int input = sc.nextInt();
+        Scanner sc2  = new Scanner(System.in);
         if (input == 1) {
             System.out.println("Anda memesan tukang: " + tukang.getServiceCategory().getName() + " Pak " + tukang.getName());
             System.out.println("Total harga: " + tukang.getServiceCategory().getPrice());
             orders.add(new Order("1", tukang, loggedInUser, tukang.getServiceCategory().getPrice(), "Selesai" , null));
-            showMainMenu();
+            System.out.println("Terimakasih sudah menggunakan service kami");
+            tukang.addBalance(tukang.getServiceCategory().getPrice());
+            rate(tukang);
         } else if (input == 9) {
             showMainMenu();
         } else {
             System.out.println("Input invalid");
             showMainMenu();
-}
+        }
 
-}
+    }
+
+    public static void rate(Tukang tukang) {
+        System.out.println("Apakah Anda ingin memberi rating terhadapt tukang?");
+        System.out.println("1. Ya");
+        System.out.println("2. Tidak");
+        System.out.println("Pilih Opsi: ");
+        int input = sc.nextInt();
+        Scanner sc2  = new Scanner(System.in);
+        if (input == 1) {
+            double inputRate = sc2.nextDouble();
+            tukang.addRating(inputRate);
+            showMainMenu();
+        } else if (input == 2) {
+            showMainMenu();
+        } else {
+            System.out.println("Input invalid");
+            rate(tukang);
+        }
+    }
 }
 

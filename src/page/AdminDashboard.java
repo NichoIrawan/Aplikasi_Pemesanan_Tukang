@@ -3,6 +3,8 @@ package tubespbo.src;/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 
+import tubespbo.src.component.koneksi;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;

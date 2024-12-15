@@ -4,7 +4,7 @@ package tubespbo.src.page;/*
  */
 
 import tubespbo.src.AdminDashboard;
-import tubespbo.src.koneksi;
+import tubespbo.src.component.koneksi;
 import tubespbo.src.page.UserDashboard;
 
 import javax.swing.*;

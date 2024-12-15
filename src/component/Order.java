@@ -80,7 +80,7 @@ public class Order {
 
     public void printOrderInfo(){
         System.out.println("ID: " + this.id);
-        System.out.println("Tukang: " + this.tukang);
+        System.out.println("Tukang: " + this.tukang.getName());
         System.out.println("TotalPrice: " + this.totalPrice);
         System.out.println("Status: " + this.status);
     }

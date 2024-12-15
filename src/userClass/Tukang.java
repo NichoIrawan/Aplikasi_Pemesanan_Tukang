@@ -38,6 +38,8 @@ public class Tukang extends User{
         this.rating += rating;
     }
 
+    public void addBalance(double balance) {this.balance += balance;}
+
     public double getBalance() {
         return balance;
     }
@@ -45,6 +47,7 @@ public class Tukang extends User{
     public void setBalance(double balance) {
         this.balance = balance;
     }
+
 
 
 
