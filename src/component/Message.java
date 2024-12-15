@@ -1,15 +1,17 @@
 package tubespbo.src.component;
 
+import tubespbo.src.userClass.User;
+
 import java.util.Date;
 
 public class Message {
      private final String msgId;
      private final String RoomId;
-     private final String msgSender;
+     private final User msgSender;
      private String msgBody;
      private final Date msgDate;
 
-     Message(String msgId, String RoomId, String msgSender, String msgBody, Date msgDate){
+     Message(String msgId, String RoomId, User msgSender, String msgBody, Date msgDate){
         this.msgId = msgId;
         this.RoomId = RoomId;
         this.msgSender = msgSender;
@@ -21,7 +23,7 @@ public class Message {
         return RoomId;
     }
 
-    public String getMsgSender() {
+    public User getMsgSender() {
         return msgSender;
     }
 
@@ -39,5 +41,10 @@ public class Message {
 
     public void setMsgBody(String msgBody) {
         this.msgBody = msgBody;
+    }
+
+    @Override
+    public String toString() {
+        return msgBody + "\n" + msgDate;
     }
 }
