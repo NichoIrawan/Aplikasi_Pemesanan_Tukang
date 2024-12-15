@@ -1,7 +1,7 @@
 package tubespbo.src.component;
 
 public class Certificate {
-    public long certificateImg;
+    public final long certificateImg;
     private final String idTukang;
     private boolean isVerified;
 
