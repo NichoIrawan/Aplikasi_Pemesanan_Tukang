@@ -92,8 +92,4 @@ public class Tukang extends User{
     public void callMenu() {
 
     }
-
-    public Services getServiceCategory() {
-        return serviceCategory;
-    }
 }
