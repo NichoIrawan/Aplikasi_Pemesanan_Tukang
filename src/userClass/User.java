@@ -50,10 +50,14 @@ public abstract class User extends Person {
         this.phoneNumber = phoneNumber;
     }
 
-    public void getOrderHistory() {
+    public void OrderHistoryString() {
         for (Order order : orderHistory) {
             System.out.println(order);
         }
+    }
+
+    public Queue<Order> getOrderHistory() {
+        return orderHistory;
     }
 
     public void addOrderHistory(Order order) {
