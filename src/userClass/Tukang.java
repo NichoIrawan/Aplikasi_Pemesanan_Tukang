@@ -54,10 +54,15 @@ public class Tukang extends User{
         this.serviceCategory.addListTukang(this);
     }
 
+
     public void getCertification() {
         for (Certificate certificate : certification) {
             System.out.println(certificate.certificateImg);
         }
+    }
+
+    public Services getServiceCategory() {
+        return serviceCategory;
     }
 
     private void addCertification(Certificate certification) {
@@ -79,6 +84,7 @@ public class Tukang extends User{
             System.out.println("[Error] Index tidak valid");
         }
     }
+
 
     public Certificate proposeCertification(long certificationImg) {
         return new Certificate(super.getId(), certificationImg);
