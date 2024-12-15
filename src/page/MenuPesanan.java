@@ -25,9 +25,9 @@ public class MenuPesanan implements ActionListener{
 
     public void createFrame(){
         //tambah data ke array
-        itemsSearch.put("1", new Tukang("abc123@gmail.com", "1234", "1", "Ujang"));
-        itemsSearch.put("2", new Tukang("bobi@gmail.com", "3214", "2", "Bobi"));
-        itemsSearch.put("3", new Tukang("agus@gmail.com", "1452", "3", "Agus"));
+        itemsSearch.put("1", new Tukang("abc123@gmail.com", "1234", "1", "Ujang", 0.0, null));
+        itemsSearch.put("2", new Tukang("bobi@gmail.com", "3214", "2", "Bobi", 0.0, null));
+        itemsSearch.put("3", new Tukang("agus@gmail.com", "1452", "3", "Agus", 0.0, null));
 
 
         frame.setSize(500,500);

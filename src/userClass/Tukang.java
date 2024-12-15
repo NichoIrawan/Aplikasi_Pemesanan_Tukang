@@ -13,4 +13,8 @@ public class Tukang extends User{
         this.rating = rating;
         this.serviceCategory = serviceCategory;
     }
+
+    public Services getServiceCategory() {
+        return serviceCategory;
+    }
 }
