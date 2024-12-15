@@ -12,7 +12,6 @@ public class Date {
         this.tahun = tahun;
     }
 
-
     public int getTanggal() {
         return tanggal;
     }
@@ -25,7 +24,6 @@ public class Date {
         return tahun;
     }
 
-
     public void setTanggal(int tanggal) {
         this.tanggal = tanggal;
     }
@@ -37,4 +35,9 @@ public class Date {
     public void setTahun(int tahun) {
         this.tahun = tahun;
 }
+
+    @Override
+    public String toString() {
+        return String.format("%02d-%02d-%04d", tanggal, bulan, tahun);
+    }
 }
