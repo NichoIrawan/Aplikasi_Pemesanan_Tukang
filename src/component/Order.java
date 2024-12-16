@@ -1,7 +1,6 @@
 package tubespbo.src.component;
 
-import tubespbo.src.userClass.Customer;
-import tubespbo.src.userClass.Tukang;
+import tubespbo.src.userClass.*;
 
 import java.util.Date;
 
@@ -18,14 +17,14 @@ enum PaymentMethod {
 }
 
 public class Order {
-    private final String id;
+    private final int id;
     private final Tukang tukang;
     private final Customer customer;
     private double totalPrice;
     private StatusOrder status;
     private final Date date;
 
-    public Order(String id, Tukang tukang, Customer customer, double totalPrice, String status, Date date) {
+    public Order(int id, Tukang tukang, Customer customer, double totalPrice, String status, Date date) {
         this.id = id;
         this.tukang = tukang;
         this.customer = customer;
@@ -34,7 +33,7 @@ public class Order {
         this.date = date;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
@@ -75,7 +74,7 @@ public class Order {
 
         // membuat transaksi
         setStatus("DalamProsesPembayaran");
-        Transaction transaction = new Transaction(id + "1", this.customer, this.tukang, paymentMethod, this.totalPrice, this.date);
+        Transaction transaction = new Transaction(id + 1, this.customer, this.tukang, paymentMethod, this.totalPrice, this.date);
     }
 
     public void printOrderInfo(){

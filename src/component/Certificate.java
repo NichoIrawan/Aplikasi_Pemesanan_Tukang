@@ -2,10 +2,10 @@ package tubespbo.src.component;
 
 public class Certificate {
     public final long certificateImg;
-    private final String idTukang;
+    private final int idTukang;
     private boolean isVerified;
 
-    public Certificate(String idTukang, long certificateImg) {
+    public Certificate(int idTukang, long certificateImg) {
         this.idTukang = idTukang;
         this.certificateImg = certificateImg;
         this.isVerified = false;
@@ -19,7 +19,7 @@ public class Certificate {
         isVerified = !isVerified;
     }
 
-    public String getIdTukang() {
+    public int getIdTukang() {
         return idTukang;
     }
 }

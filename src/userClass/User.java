@@ -2,20 +2,22 @@ package tubespbo.src.userClass;
 
 import tubespbo.src.component.Order;
 
+import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Date;
 
 public abstract class User extends Person {
     private String name;
-    private String id;
+    private int id;
     private String phoneNumber;
     private Date birthDate;
     private Queue<Order> orderHistory;
 
-    public User(String email, String password, String id, String name) {
+    public User(String email, String password, int id, String name) {
         super(email, password);
         this.id = id;
         this.name = name;
+        this.orderHistory = new LinkedList<>();
     }
 
     public Date getBirthDate() {
@@ -26,11 +28,11 @@ public abstract class User extends Person {
         this.birthDate = birthDate;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -52,7 +54,8 @@ public abstract class User extends Person {
 
     public void OrderHistoryString() {
         for (Order order : orderHistory) {
-            System.out.println(order);
+            order.printOrderInfo();
+            System.out.println();
         }
     }
 

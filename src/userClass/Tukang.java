@@ -3,6 +3,8 @@ package tubespbo.src.userClass;
 import tubespbo.src.component.Certificate;
 import tubespbo.src.component.Services;
 
+import java.util.Arrays;
+
 public class Tukang extends User{
     private double rating;
     private Certificate[] certification;
@@ -11,7 +13,7 @@ public class Tukang extends User{
     private int orderCount;
 
     //Dummy purpose only
-    public Tukang(String email, String password, String id, String name, double rating, double balance, Services serviceCategory, int orderCount) {
+    public Tukang(String email, String password, int id, String name, double rating, double balance, Services serviceCategory, int orderCount) {
         super(email, password, id, name);
         this.rating = rating;
         this.balance = balance;
@@ -21,7 +23,7 @@ public class Tukang extends User{
     }
     //------------------
 
-    public Tukang(String email, String password, String id, String name, Services serviceCategory) {
+    public Tukang(String email, String password, int id, String name, Services serviceCategory) {
         super(email, password, id, name);
         this.rating = 0;
         this.balance = 0;
@@ -77,7 +79,7 @@ public class Tukang extends User{
             if (this.certification.length <= 5) {
                 addCertification(certification);
             } else {
-                if (certification.getIdTukang().equals(super.getId()) && certification.isVerified()){
+                if (certification.getIdTukang() == super.getId() && certification.isVerified()){
                     this.certification[i] = certification;
                 } else {
                     System.out.println("Sertifikat belum terverifikasi");
@@ -100,5 +102,13 @@ public class Tukang extends User{
     @Override
     public void callMenu() {
 
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "%d-%s %.2f [%s]\n",
+                super.getId(), super.getName(), this.rating, this.serviceCategory.getName()
+        );
     }
 }

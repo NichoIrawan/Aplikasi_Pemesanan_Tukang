@@ -3,7 +3,7 @@ package tubespbo.src.page;/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 
-import tubespbo.src.AdminDashboard;
+import tubespbo.src.page.AdminDashboard;
 import tubespbo.src.component.koneksi;
 import tubespbo.src.page.UserDashboard;
 

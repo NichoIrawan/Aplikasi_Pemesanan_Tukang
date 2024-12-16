@@ -6,7 +6,7 @@ import tubespbo.src.userClass.Tukang;
 import java.util.Date;
 
 public class Transaction {
-    private final String id;
+    private final int id;
     private final Customer customer;
     private final Tukang tukang;
     private final PaymentMethod paymentMethod;
@@ -14,7 +14,7 @@ public class Transaction {
     private boolean status;
     private final Date paymentDeadline;
 
-    public Transaction(String id, Customer customer, Tukang tukang, PaymentMethod paymentMethod, double totalPrice, Date paymentDeadline) {
+    public Transaction(int id, Customer customer, Tukang tukang, PaymentMethod paymentMethod, double totalPrice, Date paymentDeadline) {
         this.id = id;
         this.customer = customer;
         this.tukang = tukang;
@@ -24,7 +24,7 @@ public class Transaction {
         this.paymentDeadline = paymentDeadline;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
