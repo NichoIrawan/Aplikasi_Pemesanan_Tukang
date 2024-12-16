@@ -46,18 +46,82 @@ public class Customer extends User {
         }
     }
 
-    public void removeAddress(int i, Address address) {
+    public void removeAddress(int i) {
         this.addresses.remove(i);
+    }
+
+    public void AddressMenu() {
+        String jalan, kelurahan, kecamatan, kota, provinsi, kode;
+        int i;
+
+        System.out.println("==========ALAMAT==========");
+        getAddresses();
+        System.out.println("--------------------------");
+        System.out.println("1. Tambah alamat");
+        System.out.println("2. Ganti alamat");
+        System.out.println("3. Hapus alamat");
+        System.out.println("0. Keluar");
+        System.out.print("Pilih opsi: ");
+        int input = sc.nextInt();
+
+        switch (input) {
+            case 1:
+                System.out.print("Jalan: ");
+                jalan = sc.next();
+                System.out.println("Kelurahan");
+                kelurahan = sc.next();
+                System.out.println("Kecamatan");
+                kecamatan = sc.next();
+                System.out.println("Kota: ");
+                kota = sc.next();
+                System.out.println("Provinsi: ");
+                provinsi = sc.next();
+                System.out.println("Kode pos: ");
+                kode = sc.next();
+
+                addAddress(new Address(jalan, kelurahan, kecamatan, kota, provinsi, kode));
+                System.out.println("Alamat berhasil ditambahkan");
+                break;
+
+            case 2:
+                try{
+                    System.out.print("Index yang diganti: ");
+                    i = sc.nextInt();
+
+                    System.out.print("Jalan: ");
+                    jalan = sc.next();
+                    System.out.println("Kelurahan");
+                    kelurahan = sc.next();
+                    System.out.println("Kecamatan");
+                    kecamatan = sc.next();
+                    System.out.println("Kota: ");
+                    kota = sc.next();
+                    System.out.println("Provinsi: ");
+                    provinsi = sc.next();
+                    System.out.println("Kode pos: ");
+                    kode = sc.next();
+
+                    changeAddresses(i, new Address(jalan, kelurahan, kecamatan, kota, provinsi, kode));
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Index salah.");;
+                }
+
+                break;
+
+            case 3:
+                try{
+                    System.out.println("Index yang ingin dihapus: ");
+                    i = sc.nextInt();
+                    removeAddress(i);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Index salah.");
+                    ;
+                }
+        }
     }
     //--------------------------
 
     //----- Tukang favorit method -----
-    public void getTukangFavorit() {
-        for (Tukang tukang : tukangFavorit) {
-            System.out.println(tukang);
-        }
-    }
-
     private void addTukangFavorit(Tukang tukang) {
         tukangFavorit.add(tukang);
     }
@@ -344,7 +408,7 @@ public class Customer extends User {
                     break;
 
                 case 6:
-
+                    AddressMenu();
                     break;
 
                 case 7:
