@@ -1,4 +1,4 @@
-package tubespbo.src;/*
+package tubespbo.src.page;/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.*;
 import javax.swing.table.DefaultTableModel;
+import tubespbo.src.component.koneksi;
 
 public class AdminDashboard extends javax.swing.JFrame {    
     public AdminDashboard() {
