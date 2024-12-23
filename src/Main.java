@@ -4,6 +4,7 @@ import tubespbo.src.component.Order;
 import tubespbo.src.component.Services;
 import tubespbo.src.userClass.*;
 
+import java.security.Provider;
 import java.util.*;
 
 public class Main {
@@ -12,6 +13,7 @@ public class Main {
     public static ArrayList<Services> servicesItems = new ArrayList<>();
     public static ArrayList<Order> orders = new ArrayList<>();
     public static HashMap<String, Person> users = new HashMap<>();
+    public static HashMap<String, User> suspendedUsers= new HashMap<>();
     static Person loggedInUser = null;
     static Scanner sc = new Scanner(System.in);
     //---------------------------
