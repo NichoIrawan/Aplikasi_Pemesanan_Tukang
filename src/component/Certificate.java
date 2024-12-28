@@ -8,7 +8,7 @@ public class Certificate {
     public Certificate(int idTukang, long certificateImg) {
         this.idTukang = idTukang;
         this.certificateImg = certificateImg;
-        this.isVerified = false;
+        this.isVerified = true;
     }
 
     public boolean isVerified() {
@@ -21,5 +21,9 @@ public class Certificate {
 
     public int getIdTukang() {
         return idTukang;
+    }
+
+    public String toString() {
+        return idTukang + "\t" + certificateImg + "\t";
     }
 }

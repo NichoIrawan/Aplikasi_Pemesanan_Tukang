@@ -14,7 +14,7 @@ public class Main {
     public static ArrayList<Order> orders = new ArrayList<>();
     public static HashMap<String, Person> users = new HashMap<>();
     public static HashMap<String, User> suspendedUsers= new HashMap<>();
-    static Person loggedInUser = null;
+    public static Person loggedInUser = null;
     static Scanner sc = new Scanner(System.in);
     //---------------------------
 
@@ -28,7 +28,6 @@ public class Main {
         users.put(customer1.getEmail(), customer1);
         users.put("admin", new Admin("admin", "admin"));
         tukangItems.put("1", new Tukang("Budi@gmail.com", "023123", 1, "Budi Setiawan", 0.0, 5000.0, plumber, 2));
-        tukangItems.put("2", new Tukang("tololgaming123@gmail.com", "1293109", 2, "Aryosetown", 0.0, 10000.0, foreman, 3));
         int choice;
         //------------------------------------------
 
@@ -49,7 +48,7 @@ public class Main {
                         break;
 
                     case 2:
-                        register();
+                        register(servicesItems);
                         break;
 
                     case 0:
@@ -85,20 +84,49 @@ public class Main {
         }
     }
 
-    public static void register() {
+    public static void register(ArrayList<Services> servicesItems) {
+        Services serviceType = null;
         System.out.println("\n========== REGISTER ==========");
-        System.out.println("Masukkan Email: ");
-        String email = sc.nextLine();
-        System.out.println("Masukkan Nama: ");
-        String nama = sc.nextLine();
-        System.out.println("Masukkan Password: ");
-        String password = sc.nextLine();
+        System.out.println("Anda ingin daftar sebagai apa?");
+        System.out.println("1. Customer");
+        System.out.println("2. Tukang");
+        System.out.print("Pilih jenis akun: ");
+        String role = sc.nextLine();
+        if (role.equals("1") || role.equals("2")) {
+            System.out.println("Masukkan Email: ");
+            String email = sc.nextLine();
+            System.out.println("Masukkan Nama: ");
+            String nama = sc.nextLine();
+            System.out.println("Masukkan Password: ");
+            String password = sc.nextLine();
+            if(role.equals("2")){
+                System.out.println("Pilih jenis servis anda");
+                System.out.println("1. Tukang Ledeng");
+                System.out.println("2. Mandor");
+                System.out.print("Pilih jenis servis: ");
 
-        if (users.containsKey(email)) {
-            System.out.println("Email sudah terdaftar. Gunakan email lain.");
+                int type = sc.nextInt();
+                serviceType = servicesItems.get(type-1);
+            }
+
+            if (users.containsKey(email)) {
+                System.out.println("Email sudah terdaftar. Gunakan email lain.");
+            } else {
+                if(role.equals("1")){
+                    users.put(email, new Customer(email, password, users.size() + 1, nama));
+                    System.out.println("Registrasi berhasil!");
+                } else {
+                    Tukang tukang = new Tukang(email, password, users.size() + 1, nama, serviceType);
+                    users.put(email, tukang);
+                    System.out.println("Registrasi berhasil!");
+                    int sz = tukangItems.size() + 1;
+                    String id = Integer.toString(sz);
+                    tukangItems.put(id, tukang);
+                }
+            }
         } else {
-            users.put(email, new Customer(email, password, users.size() + 1, nama));
-            System.out.println("Registrasi berhasil!");
+            System.out.println("Input Invalid");
         }
+
     }
 }

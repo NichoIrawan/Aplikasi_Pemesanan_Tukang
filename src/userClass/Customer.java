@@ -240,9 +240,11 @@ public class Customer extends User {
 
         switch (input) {
             case 1:
+                Order order = new Order(super.getOrderHistory().size() + 1, tukang, this, tukang.getServiceCategory().getPrice(), "MenungguKonfirmasi" , null);
                 System.out.println("Anda memesan tukang: " + tukang.getServiceCategory().getName() + " Pak " + tukang.getName());
                 System.out.println("Total harga: " + tukang.getServiceCategory().getPrice());
-                super.addOrderHistory(new Order(super.getOrderHistory().size() + 1, tukang, this, tukang.getServiceCategory().getPrice(), "Selesai" , null));
+                super.addOrderHistory(order);
+                tukang.addTukangOrder(order);
                 callMenu();
                 break;
             case 0:
@@ -423,5 +425,15 @@ public class Customer extends User {
                     System.out.println("Pilihan tidak valid.");
             }
         } while (choice != 0);
+    }
+
+    public void changeOrderStatus(Order order){
+        for (Order o : super.getOrderHistory()) {
+            if (o.getId() == order.getId()) {
+                order.setStatus("Selesai");
+            }
+        }
+
+
     }
 }

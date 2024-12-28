@@ -83,6 +83,11 @@ public class Order {
         System.out.println("TotalPrice: " + this.totalPrice);
         System.out.println("Status: " + this.status);
     }
+    public void printOrderInfoTukang(){
+        System.out.println("Customer: " + this.customer.getName());
+        System.out.println("TotalPrice: " + this.totalPrice);
+        System.out.println("Status: " + this.status);
+    }
 
     public void giveRating(Tukang tukang, double rating){}
 }
