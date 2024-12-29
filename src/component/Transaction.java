@@ -6,7 +6,6 @@ import tubespbo.src.userClass.Tukang;
 import java.util.Date;
 
 public class Transaction {
-    private final int id;
     private final Customer customer;
     private final Tukang tukang;
     private final PaymentMethod paymentMethod;
@@ -14,18 +13,13 @@ public class Transaction {
     private boolean status;
     private final Date paymentDeadline;
 
-    public Transaction(int id, Customer customer, Tukang tukang, PaymentMethod paymentMethod, double totalPrice, Date paymentDeadline) {
-        this.id = id;
+    public Transaction(Customer customer, Tukang tukang, PaymentMethod paymentMethod, double totalPrice, Date paymentDeadline) {
         this.customer = customer;
         this.tukang = tukang;
         this.paymentMethod = paymentMethod;
         this.totalPrice = totalPrice;
         this.status = false;
         this.paymentDeadline = paymentDeadline;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public Customer getCustomer() {
@@ -54,5 +48,11 @@ public class Transaction {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Placeholder";
+//        return String.format("Nama tukang: %s - %s \nMetode Pembayaran: %s \nHarga: %d \nStatus: %s \nPayment Deadline: %s \n----------------");
     }
 }

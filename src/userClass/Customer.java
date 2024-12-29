@@ -12,6 +12,7 @@ public class Customer extends User {
     private ArrayList<Address> addresses;
     private ArrayList<Tukang> tukangFavorit;
     private ArrayList<Complaint> complaints;
+    private ArrayList<Order> ongoingOrders;
 
     static Scanner sc = new Scanner(System.in);
     //----------------------------
@@ -21,6 +22,7 @@ public class Customer extends User {
         addresses = new ArrayList<>();
         tukangFavorit = new ArrayList<>();
         complaints = new ArrayList<>();
+        ongoingOrders = new ArrayList<>();
     }
 
     //----- Address method -----
@@ -162,22 +164,23 @@ public class Customer extends User {
 
         switch (input) {
             case 1:
-                try {
-                    if (tukangFavorit.size() <= 3) {
-                        for (String key : Driver.tukangItems.keySet()) {
-                            System.out.println(Driver.tukangItems.get(key));
-                        }
-                        System.out.print("Masukkan id Tukang: ");
-                        String idTukang = sc.next();
+                if (tukangFavorit.size() <= 3) {
+                    for (String key : Driver.tukangItems.keySet()) {
+                        System.out.println(Driver.tukangItems.get(key));
+                    }
+                    System.out.print("Masukkan id Tukang: ");
+                    String idTukang = sc.next();
 
-                        if (Driver.tukangItems.containsKey(idTukang)) {
+                    if (Driver.tukangItems.containsKey(idTukang)) {
+                        if (!(tukangFavorit.contains(Driver.tukangItems.get(idTukang)))) {
                             Tukang tukang = Driver.tukangItems.get(idTukang);
                             addTukangFavorit(tukang);
+                        } else {
+                            System.out.println("[Error] Tukang sudah ada");
                         }
+                    } else {
+                        System.out.println("[Error] ID Tukang tidak valid");
                     }
-                } catch (Exception e) {
-                    System.out.println("[Error] ID Tukang tidak valid");
-                    callMenu();
                 }
                 break;
 
@@ -214,10 +217,9 @@ public class Customer extends User {
         sc.nextLine(); // Clear buffer
 
         String complaint = sc.nextLine();
-        System.out.println("Komplain berhasil ditambahkan!");
 
-        Complaint com = new Complaint(complaint, order.getId());
-        complaints.add(com);
+        complaints.add(new Complaint(complaint, order.getId()));
+        System.out.println("Komplain berhasil ditambahkan!");
     }
 
     public ArrayList<Complaint> getComplaints() {
@@ -259,14 +261,14 @@ public class Customer extends User {
 
     //----- Search method ------
     public void search(HashMap<String, Tukang> tukangList, ArrayList<Services> servicesList) {
-        System.out.println("==========SEARCH TUKANG==========");
-        System.out.println("1. Cari Tukang berdasarkan nama");
-        System.out.println("2. Cari Tukang berdasarkan service");
-        System.out.println("0. Kembali");
-        System.out.println("Pilih Opsi:");
-        Scanner sc2 = new Scanner(System.in);
-        int input = sc2.nextInt();
+        int input = -1;
         while(input != 0){
+            System.out.println("==========SEARCH TUKANG==========");
+            System.out.println("1. Cari Tukang berdasarkan nama");
+            System.out.println("2. Cari Tukang berdasarkan service");
+            System.out.println("0. Kembali");
+            System.out.println("Pilih Opsi Pencarian:");
+            input = sc.nextInt();
             switch(input){
                 case 1:
                     searchTukangByName(tukangList);
@@ -276,22 +278,13 @@ public class Customer extends User {
                     searchTukangByServices(servicesList);
                     break;
 
-                case 9:
-                    callMenu();
+                case 0:
                     break;
 
                 default:
                     System.out.println("Input invalid");
             }
-
-            System.out.println("==========SEARCH TUKANG==========");
-            System.out.println("1. Cari Tukang berdasarkan nama");
-            System.out.println("2. Cari Tukang berdasarkan service");
-            System.out.println("0. Kembali");
-            System.out.println("Pilih Opsi Pencarian:");
-            input = sc.nextInt();
         }
-
     }
 
     private void searchTukangByName(HashMap<String, Tukang> tukangItems) {
@@ -340,100 +333,138 @@ public class Customer extends User {
     }
     //--------------------------
 
+    // Bayar Tukang
+    public void finishOrder(Order order) {
+        order.callMenuPembayaran();
+        System.out.print("Bayar (Y/N): ");
+        String input = sc.nextLine();
+
+        if (input.equalsIgnoreCase("y")) {
+            order.getTransaction().setStatus(true);
+            order.setStatus(StatusOrder.Selesai);
+
+            order.getTukang().addBalance(order.getTransaction().getTotalPrice());
+        }
+    }
+
     @Override
     public void callMenu() {
-        int choice;
+        int choice = -1;
 
         do {
-            System.out.println("\nMenu:");
-            System.out.println("1. Lihat Riwayat Order");
-            System.out.println("2. Buat Komplain");
-            System.out.println("3. Riwayat Komplain");
-            System.out.println("4. Cari Tukang");
-            System.out.println("5. Membuat Pesanan");
-            System.out.println("6. Simpan alamat");
-            System.out.println("7. Tukang favorit");
-            System.out.println("0. Keluar");
-            System.out.print("Pilih menu: ");
-            choice = sc.nextInt();
+            try {
+                System.out.println("\n===== Menu =====");
+                for (Order order : super.getOrderHistory()) {
+                    if (!(order.getStatus().equals(StatusOrder.Selesai))) {
+                        order.printOrderInfo();
+                    }
+                }
+                System.out.println("------------------");
+                System.out.println("1. Lihat Riwayat Order");
+                System.out.println("2. Buat Komplain");
+                System.out.println("3. Riwayat Komplain");
+                System.out.println("4. Cari Tukang");
+                System.out.println("5. Membuat Pesanan");
+                System.out.println("6. Simpan alamat");
+                System.out.println("7. Tukang favorit");
+                System.out.println("8. Bayar order");
+                System.out.println("0. Keluar");
+                System.out.print("Pilih menu: ");
+                choice = sc.nextInt();
+                sc.nextLine();
 
-            switch (choice) {
-                case 1: // Lihat Riwayat Order
-                    System.out.println("\nRiwayat Order untuk " + super.getName() + ":");
-                    super.OrderHistoryString();
-                    break;
+                switch (choice) {
+                    case 1: // Lihat Riwayat Order
+                        System.out.println("\nRiwayat Order untuk " + super.getName() + ":");
+                        super.OrderHistoryString();
+                        break;
 
-                case 2: // Buat Komplain
-                    super.OrderHistoryString();
-                    System.out.println("\nMasukkan ID Order untuk komplain: ");
-                    int orderId = sc.nextInt();
-                    boolean found = false;
+                    case 2: // Buat Komplain
+                        super.OrderHistoryString();
+                        System.out.println("\nMasukkan ID Order untuk komplain: ");
+                        int orderId = sc.nextInt();
+                        boolean found = false;
 
-                    for (Order o : super.getOrderHistory()) {
-                        if (o.getId() == orderId) {
-                            complaint(o);
-                            found = true;
-                            break;
+                        for (Order o : super.getOrderHistory()) {
+                            if (o.getId() == orderId) {
+                                complaint(o);
+                                found = true;
+                                break;
+                            }
                         }
-                    }
-                    if (!found) {
-                        System.out.println("Order dengan ID tersebut tidak ditemukan.");
-                    }
-                    break;
+                        if (!found) {
+                            System.out.println("Order dengan ID tersebut tidak ditemukan.");
+                        }
+                        break;
 
-                case 3: // Lihat komplain
-                    printComplaints();
-                    break;
+                    case 3: // Lihat komplain
+                        printComplaints();
+                        break;
 
-                case 4:
-                    search(Driver.tukangItems, Driver.servicesItems);
-                    break;
+                    case 4:
+                        search(Driver.tukangItems, Driver.servicesItems);
+                        break;
 
-                case 5: // Membuat Pesanan
-                    System.out.println("\nDaftar Tukang yang Tersedia:");
-                    for (String key : Driver.tukangItems.keySet()) {
-                        Tukang tukang = Driver.tukangItems.get(key);
-                        System.out.println("ID: " + key + ", Nama: " + tukang.getName() + ", Layanan: " + tukang.getServiceCategory().getName() + ", Harga: " + tukang.getServiceCategory().getPrice());
-                    }
+                    case 5: // Membuat Pesanan
+                        System.out.println("\nDaftar Tukang yang Tersedia:");
+                        for (String key : Driver.tukangItems.keySet()) {
+                            Tukang tukang = Driver.tukangItems.get(key);
+                            System.out.println("ID: " + key + ", Nama: " + tukang.getName() + ", Layanan: " + tukang.getServiceCategory().getName() + ", Harga: " + tukang.getServiceCategory().getPrice());
+                        }
 
-                    System.out.println("Masukkan ID Tukang yang ingin dipesan: ");
-                    sc.nextLine(); // Clear buffer
-                    String tukangId = sc.nextLine();
+                        System.out.println("Masukkan ID Tukang yang ingin dipesan: ");
+                        String tukangId = sc.nextLine();
 
-                    Tukang selectedTukang = Driver.tukangItems.get(tukangId);
+                        Tukang selectedTukang = Driver.tukangItems.get(tukangId);
 
-                    if (selectedTukang != null) {
-                        order(selectedTukang); // Memanggil method order
-                    } else {
-                        System.out.println("ID Tukang tidak ditemukan.");
-                    }
-                    break;
+                        if (selectedTukang != null) {
+                            order(selectedTukang); // Memanggil method order
+                        } else {
+                            System.out.println("ID Tukang tidak ditemukan.");
+                        }
+                        break;
 
-                case 6:
-                    AddressMenu();
-                    break;
+                    case 6:
+                        AddressMenu();
+                        break;
 
-                case 7:
-                    tukangFavoritMenu();
-                    break;
+                    case 7:
+                        tukangFavoritMenu();
+                        break;
 
-                case 0: // Keluar
-                    System.out.println("Terima kasih telah menggunakan aplikasi.");
-                    break;
+                    case 8:
+                        for (Order order : super.getOrderHistory()) {
+                            if (!(order.getStatus().equals(StatusOrder.Selesai))) {
+                                order.printOrderInfo();
+                            }
+                        }
 
-                default:
-                    System.out.println("Pilihan tidak valid.");
+                        System.out.println("Masukkan ID Order untuk dibayar: ");
+                        int idOrder = sc.nextInt();
+                        sc.nextLine();
+
+                        finishOrder(super.getOrderHistory().get(idOrder - 1));
+                        break;
+
+                    case 0: // Keluar
+                        System.out.println("Terima kasih telah menggunakan aplikasi.");
+                        break;
+
+                    default:
+                        System.out.println("Pilihan tidak valid.");
+                }
+            } catch (Exception e) {
+                System.out.println("Pilihan tidak valid");
+                sc.nextLine();
             }
         } while (choice != 0);
     }
 
-    public void changeOrderStatus(Order order){
-        for (Order o : super.getOrderHistory()) {
-            if (o.getId() == order.getId()) {
-                order.setStatus("Selesai");
-            }
-        }
-
-
-    }
+//    public void changeOrderStatus(Order order){
+//        for (Order o : super.getOrderHistory()) {
+//            if (o.getId() == order.getId()) {
+//                order.setStatus("Selesai");
+//            }
+//        }
+//    }
 }

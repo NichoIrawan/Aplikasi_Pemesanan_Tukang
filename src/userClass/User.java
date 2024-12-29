@@ -1,7 +1,9 @@
 package tubespbo.src.userClass;
 
 import tubespbo.src.component.Order;
+import tubespbo.src.component.StatusOrder;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Date;
@@ -11,13 +13,13 @@ public abstract class User extends Person {
     private int id;
     private String phoneNumber;
     private Date birthDate;
-    private Queue<Order> orderHistory;
+    private ArrayList<Order> orderHistory;
 
     public User(String email, String password, int id, String name) {
         super(email, password);
         this.id = id;
         this.name = name;
-        this.orderHistory = new LinkedList<>();
+        this.orderHistory = new ArrayList<>();
     }
 
     public Date getBirthDate() {
@@ -54,19 +56,18 @@ public abstract class User extends Person {
 
     public void OrderHistoryString() {
         for (Order order : orderHistory) {
-            order.printOrderInfo();
-            System.out.println();
+            if (order.getStatus().equals(StatusOrder.Selesai)) {
+                order.printOrderInfo();
+                System.out.println();
+            }
         }
     }
 
-    public Queue<Order> getOrderHistory() {
+    public ArrayList<Order> getOrderHistory() {
         return orderHistory;
     }
 
     public void addOrderHistory(Order order) {
         this.orderHistory.add(order);
-        if (this.orderHistory.size() > 10) {
-            this.orderHistory.remove();
-        }
     }
 }

@@ -3,18 +3,7 @@ package tubespbo.src.component;
 import tubespbo.src.userClass.*;
 
 import java.util.Date;
-
-enum StatusOrder {
-    MenungguKonfirmasi,
-    DalamProsesPembayaran,
-    TelahDibayar,
-    Selesai,
-    Dibatalkan
-}
-
-enum PaymentMethod {
-    CASH
-}
+import java.util.Scanner;
 
 public class Order {
     private final int id;
@@ -23,6 +12,8 @@ public class Order {
     private double totalPrice;
     private StatusOrder status;
     private final Date date;
+    private Transaction transaction;
+    private Scanner scanner;
 
     public Order(int id, Tukang tukang, Customer customer, double totalPrice, String status, Date date) {
         this.id = id;
@@ -31,6 +22,7 @@ public class Order {
         this.totalPrice = totalPrice;
         this.status = StatusOrder.valueOf(status);
         this.date = date;
+        this.transaction = null;
     }
 
     public int getId() {
@@ -43,6 +35,10 @@ public class Order {
 
     public Customer getCustomer() {
         return customer;
+    }
+
+    public Transaction getTransaction() {
+        return transaction;
     }
 
     public Date getDate() {
@@ -61,11 +57,9 @@ public class Order {
         return status;
     }
 
-    public void setStatus(String status) {
-        this.status = StatusOrder.valueOf(status);
+    public void setStatus(StatusOrder status) {
+        this.status = status;
     }
-
-    public void callMenuOrder(){}
 
     public void callMenuPembayaran(){
         PaymentMethod paymentMethod = PaymentMethod.CASH; // By default
@@ -73,8 +67,9 @@ public class Order {
         // pilih metode pembayaran
 
         // membuat transaksi
-        setStatus("DalamProsesPembayaran");
-        Transaction transaction = new Transaction(id + 1, this.customer, this.tukang, paymentMethod, this.totalPrice, this.date);
+        setStatus(StatusOrder.DalamProsesPembayaran);
+        this.transaction = new Transaction(this.customer, this.tukang, paymentMethod, this.totalPrice, this.date);
+        System.out.println(this.transaction);
     }
 
     public void printOrderInfo(){
@@ -83,11 +78,10 @@ public class Order {
         System.out.println("TotalPrice: " + this.totalPrice);
         System.out.println("Status: " + this.status);
     }
+
     public void printOrderInfoTukang(){
         System.out.println("Customer: " + this.customer.getName());
         System.out.println("TotalPrice: " + this.totalPrice);
         System.out.println("Status: " + this.status);
     }
-
-    public void giveRating(Tukang tukang, double rating){}
 }

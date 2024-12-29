@@ -1,9 +1,9 @@
 package tubespbo.src.userClass;
 
-import tubespbo.src.Driver;
 import tubespbo.src.component.Certificate;
 import tubespbo.src.component.Order;
 import tubespbo.src.component.Services;
+import tubespbo.src.component.StatusOrder;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -13,9 +13,10 @@ public class Tukang extends User{
     private ArrayList<Certificate> certificationList = new ArrayList<>();
     private double balance;
     private Services serviceCategory;
-    private ArrayList<Order> orders = new ArrayList<>();
+    private ArrayList<Order> ongoingOrders = new ArrayList<>();
     private int orderCount;
     static Scanner sc = new Scanner(System.in);
+
     //Dummy purpose only
     public Tukang(String email, String password, int id, String name, double rating, double balance, Services serviceCategory, int orderCount) {
         super(email, password, id, name);
@@ -36,6 +37,10 @@ public class Tukang extends User{
         serviceCategory.addListTukang(this);
     }
 
+    public void addTukangOrder(Order order) {
+        ongoingOrders.add(order);
+    }
+
     public double getRating() {
         return rating/orderCount;
     }
@@ -54,15 +59,11 @@ public class Tukang extends User{
         this.balance = balance;
     }
 
-
-
-
     public void setServiceCategory(Services serviceCategory) {
         this.serviceCategory.removeListTukang(this);
         this.serviceCategory = serviceCategory;
         this.serviceCategory.addListTukang(this);
     }
-
 
     public void getCertification() {
         for (Certificate certificate : certificationList) {
@@ -106,13 +107,13 @@ public class Tukang extends User{
     @Override
     public void callMenu() {
         int choice;
-        String serviceName = "";
-//        if(Driver.loggedInUser instanceof Tukang){
-//           serviceName = ((Tukang) Driver.loggedInUser).getServiceCategory().getName();
-//        }
+
         do {
-            System.out.println("\nMenu Tukang");
-            System.out.println("Jenis Servis Anda: " + serviceName);
+            System.out.println("\n=========== Menu Tukang ===========");
+            System.out.println("Jenis jasa anda: " + this.serviceCategory.getName());
+            System.out.println("Harga jasa anda: " + this.serviceCategory.getPrice());
+            System.out.println("Saldo anda: " + this.balance);
+            System.out.println("-------------------------------------");
             System.out.println("1. Terima Order");
             System.out.println("2. Sertifikat");
             System.out.println("3. Lihat History Pesanan");
@@ -124,18 +125,21 @@ public class Tukang extends User{
                 case 1: // Terima Order
                     accOrder();
                     break;
+
                 case 2: // Sertifikat
                     certificateMenu();
                     break;
+
                 case 3: // Lihat history pekerjaan
                     System.out.println("History Anda");
-                    if(orders.isEmpty()){
+                    if(ongoingOrders.isEmpty()){
                         System.out.println("Belum ada pesanan");
                     }
-                    for (Order order : orders) {
-                        System.out.println(order);
+                    for (Order order : ongoingOrders) {
+                        order.printOrderInfoTukang();
                     }
                     break;
+
                 case 0: // Keluar
                     System.out.println("Terima kasih telah menggunakan aplikasi.");
                     break;
@@ -147,32 +151,30 @@ public class Tukang extends User{
     }
 
     public void accOrder(){
-        int i = 1;
-        Customer cust;
         System.out.println();
-        if(orders.isEmpty()){
+
+        if(ongoingOrders.isEmpty()){
             System.out.println("Belum ada pesanan untuk saat ini");
         } else {
-            for (Order order : orders) {
-                System.out.println("Order ID: " + order.getId());
-                order.printOrderInfoTukang();
-                System.out.println();
-                i++;
+            for (Order order : ongoingOrders) {
+                if (!(order.getStatus().equals(StatusOrder.Selesai))) {
+                    System.out.println("Order ID: " + order.getId());
+                    order.printOrderInfoTukang();
+                    System.out.println();
+                }
             }
+
             System.out.println("Pilih id order yang ingin diterima: ");
             int item = sc.nextInt();
-            if(item > orders.size() || item < 0){
-                System.out.println("Tukang tidak ditemukan");
+
+            if(item > ongoingOrders.size() || item < 0){
+                System.out.println("Order tidak ditemukan");
             } else {
-                cust = orders.get(item-1).getCustomer();
-                cust.changeOrderStatus(orders.get(item-1));
+                ongoingOrders.get(item-1).setStatus(StatusOrder.DalamProsesPembayaran);
                 System.out.println("Berhasil menerima order!");
-
             }
-
         }
     }
-
 
     @Override
     public String toString() {
@@ -180,10 +182,6 @@ public class Tukang extends User{
                 "%d-%s %.2f [%s]\n",
                 super.getId(), super.getName(), this.rating, this.serviceCategory.getName()
         );
-    }
-
-    public void addTukangOrder(Order order) {
-        orders.add(order);
     }
 
     public void certificateMenu(){
@@ -229,7 +227,5 @@ public class Tukang extends User{
                     System.out.println("Pilihan tidak valid.");
             }
         } while (choice != 0);
-
-
     }
 }
