@@ -52,7 +52,10 @@ public class Transaction {
 
     @Override
     public String toString() {
-        return "Placeholder";
-//        return String.format("Nama tukang: %s - %s \nMetode Pembayaran: %s \nHarga: %d \nStatus: %s \nPayment Deadline: %s \n----------------");
+        String a = "Nama Tukang: " + this.tukang + "\nMetode Pembayaran: " + this.getPaymentMethod().name() + "\n Harga: " + this.getTotalPrice() + "\n Status: " + this.isStatus();
+        return a;
+
+
+
     }
 }

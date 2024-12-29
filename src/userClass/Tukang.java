@@ -136,7 +136,9 @@ public class Tukang extends User{
                         System.out.println("Belum ada pesanan");
                     }
                     for (Order order : ongoingOrders) {
-                        order.printOrderInfoTukang();
+                        if (order.getStatus().equals(StatusOrder.Selesai)) {
+                            order.printOrderInfoTukang();
+                        }
                     }
                     break;
 
@@ -157,11 +159,10 @@ public class Tukang extends User{
             System.out.println("Belum ada pesanan untuk saat ini");
         } else {
             for (Order order : ongoingOrders) {
-                if (!(order.getStatus().equals(StatusOrder.Selesai))) {
                     System.out.println("Order ID: " + order.getId());
                     order.printOrderInfoTukang();
                     System.out.println();
-                }
+
             }
 
             System.out.println("Pilih id order yang ingin diterima: ");

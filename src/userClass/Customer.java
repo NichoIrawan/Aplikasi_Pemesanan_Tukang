@@ -245,7 +245,7 @@ public class Customer extends User {
                 Order order = new Order(super.getOrderHistory().size() + 1, tukang, this, tukang.getServiceCategory().getPrice(), "MenungguKonfirmasi" , null);
                 System.out.println("Anda memesan tukang: " + tukang.getServiceCategory().getName() + " Pak " + tukang.getName());
                 System.out.println("Total harga: " + tukang.getServiceCategory().getPrice());
-                super.addOrderHistory(order);
+                ongoingOrders.add(order);
                 tukang.addTukangOrder(order);
                 callMenu();
                 break;
@@ -342,8 +342,8 @@ public class Customer extends User {
         if (input.equalsIgnoreCase("y")) {
             order.getTransaction().setStatus(true);
             order.setStatus(StatusOrder.Selesai);
-
             order.getTukang().addBalance(order.getTransaction().getTotalPrice());
+            super.addOrderHistory(order);
         }
     }
 
@@ -433,17 +433,15 @@ public class Customer extends User {
                         break;
 
                     case 8:
-                        for (Order order : super.getOrderHistory()) {
-                            if (!(order.getStatus().equals(StatusOrder.Selesai))) {
-                                order.printOrderInfo();
-                            }
+                        for (Order order : ongoingOrders) {
+                            order.printOrderInfo();
                         }
 
                         System.out.println("Masukkan ID Order untuk dibayar: ");
                         int idOrder = sc.nextInt();
                         sc.nextLine();
 
-                        finishOrder(super.getOrderHistory().get(idOrder - 1));
+                        finishOrder(ongoingOrders.get(idOrder - 1));
                         break;
 
                     case 0: // Keluar
@@ -460,11 +458,5 @@ public class Customer extends User {
         } while (choice != 0);
     }
 
-//    public void changeOrderStatus(Order order){
-//        for (Order o : super.getOrderHistory()) {
-//            if (o.getId() == order.getId()) {
-//                order.setStatus("Selesai");
-//            }
-//        }
-//    }
+
 }

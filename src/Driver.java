@@ -33,7 +33,7 @@ public class Driver implements DriverInterface {
         servicesItems.add(new Services("Mandor", "Pengawas Lapangan", 300000));
 
         tukangItems.put("1", new Tukang("Budi@gmail.com", "023123", 1, "Budi Setiawan",
-                0.0, 5000.0, servicesItems.getFirst(), 0));
+                0.0, 5000.0, servicesItems.get(0), 0));
 
         users.put(tukangItems.get("1").getEmail(), tukangItems.get("1"));
         users.put("Triana@gmail.com", new Customer("Triana@gmail.com", "1234", 1, "Triana"));
