@@ -1,6 +1,6 @@
 package tubespbo.src.userClass;
 
-import tubespbo.src.Main;
+import tubespbo.src.Driver;
 import tubespbo.src.component.*;
 
 import java.util.ArrayList;
@@ -164,14 +164,14 @@ public class Customer extends User {
             case 1:
                 try {
                     if (tukangFavorit.size() <= 3) {
-                        for (String key : Main.tukangItems.keySet()) {
-                            System.out.println(Main.tukangItems.get(key));
+                        for (String key : Driver.tukangItems.keySet()) {
+                            System.out.println(Driver.tukangItems.get(key));
                         }
                         System.out.print("Masukkan id Tukang: ");
                         String idTukang = sc.next();
 
-                        if (Main.tukangItems.containsKey(idTukang)) {
-                            Tukang tukang = Main.tukangItems.get(idTukang);
+                        if (Driver.tukangItems.containsKey(idTukang)) {
+                            Tukang tukang = Driver.tukangItems.get(idTukang);
                             addTukangFavorit(tukang);
                         }
                     }
@@ -191,8 +191,8 @@ public class Customer extends User {
                 System.out.print("Masukkan ID tukang yang ingin dimasukkan: ");
                 String idTukang = sc.next();
 
-                if (Main.tukangItems.containsKey(idTukang)) {
-                    changeTukangFavorit(i - 1, Main.tukangItems.get(idTukang));
+                if (Driver.tukangItems.containsKey(idTukang)) {
+                    changeTukangFavorit(i - 1, Driver.tukangItems.get(idTukang));
                 }
                 break;
 
@@ -386,13 +386,13 @@ public class Customer extends User {
                     break;
 
                 case 4:
-                    search(Main.tukangItems, Main.servicesItems);
+                    search(Driver.tukangItems, Driver.servicesItems);
                     break;
 
                 case 5: // Membuat Pesanan
                     System.out.println("\nDaftar Tukang yang Tersedia:");
-                    for (String key : Main.tukangItems.keySet()) {
-                        Tukang tukang = Main.tukangItems.get(key);
+                    for (String key : Driver.tukangItems.keySet()) {
+                        Tukang tukang = Driver.tukangItems.get(key);
                         System.out.println("ID: " + key + ", Nama: " + tukang.getName() + ", Layanan: " + tukang.getServiceCategory().getName() + ", Harga: " + tukang.getServiceCategory().getPrice());
                     }
 
@@ -400,7 +400,7 @@ public class Customer extends User {
                     sc.nextLine(); // Clear buffer
                     String tukangId = sc.nextLine();
 
-                    Tukang selectedTukang = Main.tukangItems.get(tukangId);
+                    Tukang selectedTukang = Driver.tukangItems.get(tukangId);
 
                     if (selectedTukang != null) {
                         order(selectedTukang); // Memanggil method order

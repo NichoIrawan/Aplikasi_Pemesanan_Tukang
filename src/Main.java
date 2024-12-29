@@ -9,18 +9,18 @@ import java.util.*;
 
 public class Main {
     //----- Initialize Data -----
-    public static HashMap<String, Tukang> tukangItems = new HashMap<>();
+    /*public static HashMap<String, Tukang> tukangItems = new HashMap<>();
     public static ArrayList<Services> servicesItems = new ArrayList<>();
     public static ArrayList<Order> orders = new ArrayList<>();
     public static HashMap<String, Person> users = new HashMap<>();
     public static HashMap<String, User> suspendedUsers= new HashMap<>();
     public static Person loggedInUser = null;
-    static Scanner sc = new Scanner(System.in);
+    static Scanner sc = new Scanner(System.in);*/
     //---------------------------
 
     public static void main(String[] args) {
         //----- Add items to list & initialize -----
-        Services plumber = new Services("Tukang Ledeng", "Penyelesai masalah toilet", 300000);
+        /*Services plumber = new Services("Tukang Ledeng", "Penyelesai masalah toilet", 300000);
         Services foreman = new Services("Mandor", "Pengawas Lapangan", 300000);
         servicesItems.add(plumber);
         servicesItems.add(foreman);
@@ -65,10 +65,15 @@ public class Main {
             Main.main(args);
         }
 
-        sc.close();
+        sc.close();*/
+
+        Driver driver = new Driver();
+
+        driver.initialize();
+        driver.menu();
     }
 
-    public static void login() {
+    /*public static void login() {
         System.out.println("\n========== LOGIN ==========");
         System.out.println("Masukkan Email: ");
         String email = sc.next();
@@ -128,5 +133,5 @@ public class Main {
             System.out.println("Input Invalid");
         }
 
-    }
+    }*/
 }

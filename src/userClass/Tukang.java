@@ -1,6 +1,6 @@
 package tubespbo.src.userClass;
 
-import tubespbo.src.Main;
+import tubespbo.src.Driver;
 import tubespbo.src.component.Certificate;
 import tubespbo.src.component.Order;
 import tubespbo.src.component.Services;
@@ -107,9 +107,9 @@ public class Tukang extends User{
     public void callMenu() {
         int choice;
         String serviceName = "";
-        if(Main.loggedInUser instanceof Tukang){
-           serviceName = ((Tukang) Main.loggedInUser).getServiceCategory().getName();
-        }
+//        if(Driver.loggedInUser instanceof Tukang){
+//           serviceName = ((Tukang) Driver.loggedInUser).getServiceCategory().getName();
+//        }
         do {
             System.out.println("\nMenu Tukang");
             System.out.println("Jenis Servis Anda: " + serviceName);
