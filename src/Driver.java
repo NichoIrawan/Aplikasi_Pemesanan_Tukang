@@ -76,9 +76,11 @@ public class Driver implements DriverInterface {
 
                     default:
                         System.out.println("Pilihan tidak valid.");
+                        break;
                 }
             } catch (Exception e) {
                 System.out.println("Pilihan tidak valid.");
+                sc.nextLine();
             }
         }
     }
@@ -126,13 +128,22 @@ public class Driver implements DriverInterface {
                     users.put(email, new Customer(email, password, users.size() + 1, nama));
                     System.out.println("Registrasi berhasil!");
                 } else {
-                    System.out.println("Pilih jenis servis anda");
-                    for (int i = 0; i < servicesItems.size(); i++) {
-                        System.out.printf("%d. %s", i + 1, servicesItems.get(i).getName());
-                    }
-                    System.out.print("Pilih jenis servis: ");
+                    int type = 0;
+                    while (type == 0) {
+                        try {
+                            System.out.println("\nPilih jenis servis anda");
+                            for (int i = 0; i < servicesItems.size(); i++) {
+                                System.out.printf("%d. %s\n", i + 1, servicesItems.get(i).getName());
+                            }
+                            System.out.print("Pilih jenis servis: ");
 
-                    int type = sc.nextInt();
+                            type = sc.nextInt();
+                            sc.nextLine();
+                        } catch (Exception e) {
+                            System.out.println("Pilih tidak valid.");
+                            sc.nextLine();
+                        }
+                    }
                     Services serviceType = servicesItems.get(type-1);
 
                     Tukang tukang = new Tukang(email, password, users.size() + 1, nama, serviceType);
