@@ -30,9 +30,7 @@ public abstract class Person {
         this.password = password;
     }
 
-    public void callMenuChat(ChatRoom chatRoom) {
-
-    }
+    public void callMenuChat(ChatRoom chatRoom) {}
 
     public abstract void callMenu();
 }

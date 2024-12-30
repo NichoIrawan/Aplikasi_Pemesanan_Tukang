@@ -147,8 +147,7 @@ public class Driver implements DriverInterface {
                     Services serviceType = servicesItems.get(type-1);
 
                     Tukang tukang = new Tukang(email, password, users.size() + 1, nama, serviceType);
-                    int sz = tukangItems.size() + 1;
-                    String id = Integer.toString(sz);
+                    String id = Integer.toString(tukang.getId());
 
                     tukangItems.put(id, tukang);
                     users.put(email, tukang);

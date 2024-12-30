@@ -95,13 +95,41 @@ public class Tukang extends User{
         }
     }
 
-
-    public Certificate proposeCertification(long certificationImg) {
+    public Certificate proposeCertification(String certificationImg) {
         return new Certificate(super.getId(), certificationImg);
     }
 
-    public void confirmOrder() {
-        orderCount++;
+    public void accOrder(){
+        System.out.println();
+
+        try {
+            if(ongoingOrders.isEmpty()){
+                System.out.println("Belum ada pesanan untuk saat ini");
+            } else {
+                for (Order order : ongoingOrders) {
+                    System.out.println("Order ID: " + order.getId());
+                    order.printOrderInfoTukang();
+                    System.out.println();
+                }
+
+                System.out.println("Pilih id order yang ingin diterima: ");
+                int item = sc.nextInt();
+
+                if(item > ongoingOrders.size() || item < 0){
+                    System.out.println("Order tidak ditemukan");
+                } else {
+                    if (ongoingOrders.get(item-1).getStatus().equals(StatusOrder.MenungguKonfirmasi)) {
+                        ongoingOrders.get(item-1).setStatus(StatusOrder.DalamProsesPembayaran);
+                        System.out.println("Berhasil menerima order!");
+                    } else {
+                        System.out.println("Pesanan sudah dikonfirmasi");
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("[Error] Index tidak valid");
+            sc.nextLine();
+        }
     }
 
     @Override
@@ -152,31 +180,6 @@ public class Tukang extends User{
         } while (choice != 0);
     }
 
-    public void accOrder(){
-        System.out.println();
-
-        if(ongoingOrders.isEmpty()){
-            System.out.println("Belum ada pesanan untuk saat ini");
-        } else {
-            for (Order order : ongoingOrders) {
-                    System.out.println("Order ID: " + order.getId());
-                    order.printOrderInfoTukang();
-                    System.out.println();
-
-            }
-
-            System.out.println("Pilih id order yang ingin diterima: ");
-            int item = sc.nextInt();
-
-            if(item > ongoingOrders.size() || item < 0){
-                System.out.println("Order tidak ditemukan");
-            } else {
-                ongoingOrders.get(item-1).setStatus(StatusOrder.DalamProsesPembayaran);
-                System.out.println("Berhasil menerima order!");
-            }
-        }
-    }
-
     @Override
     public String toString() {
         return String.format(
@@ -205,7 +208,7 @@ public class Tukang extends User{
                     break;
                 case 2: // Tambah Sertifikat
                     System.out.println("Tambah file sertifikat: ");
-                    long fileId = sc.nextLong();
+                    String fileId = sc.nextLine();
                     Certificate cert = new Certificate(certificationList.size() + 1, fileId);
                     addCertification(cert);
                     break;

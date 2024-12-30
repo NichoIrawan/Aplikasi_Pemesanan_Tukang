@@ -242,7 +242,7 @@ public class Customer extends User {
 
         switch (input) {
             case 1:
-                Order order = new Order(super.getOrderHistory().size() + 1, tukang, this, tukang.getServiceCategory().getPrice(), "MenungguKonfirmasi" , null);
+                Order order = new Order(ongoingOrders.size() + 1, tukang, this, tukang.getServiceCategory().getPrice(), "MenungguKonfirmasi" , null);
                 System.out.println("Anda memesan tukang: " + tukang.getServiceCategory().getName() + " Pak " + tukang.getName());
                 System.out.println("Total harga: " + tukang.getServiceCategory().getPrice());
                 ongoingOrders.add(order);
@@ -335,15 +335,19 @@ public class Customer extends User {
 
     // Bayar Tukang
     public void finishOrder(Order order) {
-        order.callMenuPembayaran();
-        System.out.print("Bayar (Y/N): ");
-        String input = sc.nextLine();
+        if (order.getStatus().equals(StatusOrder.DalamProsesPembayaran)) {
+            order.callMenuPembayaran();
+            System.out.print("Bayar (Y/N): ");
+            String input = sc.nextLine();
 
-        if (input.equalsIgnoreCase("y")) {
-            order.getTransaction().setStatus(true);
-            order.setStatus(StatusOrder.Selesai);
-            order.getTukang().addBalance(order.getTransaction().getTotalPrice());
-            super.addOrderHistory(order);
+            if (input.equalsIgnoreCase("y")) {
+                order.getTransaction().setStatus(true);
+                order.setStatus(StatusOrder.Selesai);
+                order.getTukang().addBalance(order.getTransaction().getTotalPrice());
+                super.addOrderHistory(order);
+            }
+        } else {
+            System.out.println("Pesanan belum dikonfirmasi");
         }
     }
 
@@ -354,8 +358,8 @@ public class Customer extends User {
         do {
             try {
                 System.out.println("\n===== Menu =====");
-                for (Order order : super.getOrderHistory()) {
-                    if (!(order.getStatus().equals(StatusOrder.Selesai))) {
+                for (Order order : ongoingOrders) {
+                    if (!order.getStatus().equals(StatusOrder.Selesai)) {
                         order.printOrderInfo();
                     }
                 }
